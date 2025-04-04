@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "2bS5AkhRHqAnKT92wLFKeW3i0FvFR/A+LjlQpWWNWcU=",
+  "Source": "lab4-web-app",
+  "BasePath": "_content/lab4-web-app",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
