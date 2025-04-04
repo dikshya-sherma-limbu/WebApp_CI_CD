@@ -1,0 +1,39 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: WebApp
+    source: dikshya-sherma-limbu.WebApp_CI_CD  
+    trigger: true               # Automatically trigger when CI completes
+
+stages:
+- stage: Deploy
+  displayName: 'Deploy Web App'
+  jobs:
+  - deployment: DeployWebApp
+    displayName: 'Deploy to IIS'
+    environment:
+      name: WebAppEnvironment   # The name of your environment
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: WebApp
+            artifact: drop
+            
+          - task: IISWebAppManagementOnMachineGroup@0
+            inputs:
+              IISDeploymentType: 'IISWebsite'
+              ActionIISWebsite: 'CreateOrUpdateWebsite'
+              WebsiteName: 'YourWebApp'
+              WebsitePhysicalPath: 'C:\inetpub\wwwroot\YourWebApp'
+              WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
+              AddBinding: true
+              Binding: 'http/:*:80:'
+              
+          - task: IISWebAppDeploymentOnMachineGroup@0
+            inputs:
+              WebSiteName: 'YourWebApp'
+              Package: '$(Pipeline.Workspace)/WebApp/drop/WebApp.zip'
+              TakeAppOfflineFlag: true
