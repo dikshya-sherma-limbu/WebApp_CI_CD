@@ -8,9 +8,9 @@ resources:
 
 stages:
 - stage: Deploy
-  displayName: 'Deploy Web App'
+  displayName: 'Deploy Web Api'
   jobs:
-  - deployment: DeployWebApp
+  - deployment: DeployWebApi
     displayName: 'Deploy to IIS'
     environment:
       name: WebAppEnvironment   # The name of your environment
